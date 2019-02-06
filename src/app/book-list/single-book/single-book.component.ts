@@ -29,4 +29,9 @@ export class SingleBookComponent implements OnInit {
   onBack() {
     this.router.navigate(['/books']);
   }
+
+  onEdit() {
+    const id: number = this.route.snapshot.params.id;
+    this.router.navigate(['/books', 'edit', id]);
+  }
 }

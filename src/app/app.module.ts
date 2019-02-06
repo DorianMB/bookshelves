@@ -14,6 +14,7 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {BooksService} from './services/books.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { BookEditComponent } from './book-list/book-edit/book-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {HttpClientModule} from '@angular/common/http';
     BookListComponent,
     SingleBookComponent,
     BookFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    BookEditComponent
   ],
   imports: [
     BrowserModule,

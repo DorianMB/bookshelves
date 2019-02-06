@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Book} from '../models/Book.model';
 import {Subject} from 'rxjs';
 import * as firebase from 'firebase';
-import {error} from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +34,6 @@ export class BooksService {
       (resolve, reject) => {
         firebase.database().ref('/books/' + id).once('value').then(
           (data) => {
-            console.log(data.val());
             resolve(data.val());
           }, (error) => {
             reject(error);
@@ -51,9 +49,9 @@ export class BooksService {
     this.emitBooks();
   }
 
-  removeBook(book: Book) {
-    if (book.photo) {
-      const storageRef = firebase.storage().refFromURL(book.photo);
+  removePhoto(photo: string) {
+    if (photo) {
+      const storageRef = firebase.storage().refFromURL(photo);
       storageRef.delete().then(
         () => {
           console.log('image supprimée');
@@ -64,6 +62,9 @@ export class BooksService {
         }
       );
     }
+  }
+
+  removeBook(book: Book) {
     const bookIndexToRemove = this.books.findIndex(
       (bookEl) => {
         if (bookEl === book) {
@@ -71,6 +72,19 @@ export class BooksService {
         }
       }
     );
+    this.books.splice(bookIndexToRemove, 1);
+    this.saveBooks();
+    this.emitBooks();
+  }
+
+  removeEditBook(book: Book) {
+    const bookIndexToRemove = this.books.findIndex(
+      (bookEl) => {
+        if (bookEl === book) {
+          return true;
+        }
+      }
+    ) - 1;
     this.books.splice(bookIndexToRemove, 1);
     this.saveBooks();
     this.emitBooks();
@@ -90,7 +104,6 @@ export class BooksService {
             console.log(error);
             reject(error);
           }, ()  => {
-            console.log(upload.snapshot.ref.getDownloadURL());
             resolve(upload.snapshot.ref.getDownloadURL());
           }
         );

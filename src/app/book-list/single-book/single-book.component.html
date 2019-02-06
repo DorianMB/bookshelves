@@ -1,8 +1,13 @@
 <div class="row">
-  <div class="col-xs-12">
-    <img style="max-width: 400px" class="img-responsive" *ngIf="book.photo" [src]="book.photo">
+  <div class="col-sm-4">
+    <img class="img-responsive center-block" *ngIf="book.photo" [src]="book.photo">
+  </div>
+  <div class="col-sm-8">
     <h1>{{book.title}}</h1>
-    <h3>{{book.author}}</h3>
+    <h2>{{book.author}}</h2>
+    <h3>Description</h3>
+    <div class="text-justify description">{{book.description}}</div>
     <button class="btn btn-primary" (click)="onBack()">Retour</button>
+    <button class="btn btn-primary" (click)="onEdit()">Edit</button>
   </div>
 </div>

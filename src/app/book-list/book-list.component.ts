@@ -32,6 +32,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteBook(book: Book) {
+    this.bookService.removePhoto(book.photo);
     this.bookService.removeBook(book);
   }
 
